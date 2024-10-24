@@ -5,7 +5,8 @@ if [ "$EUID" -ne 0 ]; then
 	exit 1
 fi
 
-sudo apt install vim git 
+sudo apt update && sudo apt full-upgrade
+sudo apt install vim git python3
 sudo ln -s /bin/vim /bin/v
 sudo apt purge nano
 sudo ln -s /bin/vim /bin/nano
@@ -15,8 +16,6 @@ cp config-files/.vimrc ~/.vimrc
 cp config-files/.bashrc ~/.bashrc
 cp config-files/.bash_aliases ~/.bash_aliases
 rm -rf config-files
-
-sudo apt update && sudo apt full-upgrade
 
 
 
