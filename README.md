@@ -12,8 +12,10 @@ Les scripts d'installation doivent suivre les propriétés suivantes :
 - Être exécutable
 - Les deux premières lignes doivent êtres les suivantes :
 
-`#!/bin/bash`
-`#Descripteur du module`
+```bash
+#!/bin/bash
+#Descripteur du module
+```
 
 Note : Il est préférable d'avoir un script d'installation du module dans le repo du module, de cette manière le script d'installation dans ce repo se contente de clone le module au bon endroit, lancer le script d'installation et cleaner si besoin est.
 
