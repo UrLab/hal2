@@ -4,11 +4,10 @@ L'idée de cette nouvelle version est d'avoir une architecture en plein de petit
 Pour ce faire on a créé un script d'installation à lancer pour installer HAL2.
 
 L'	architecture de ce repo d'installation d'HAL2 est la suivante :\
-
-`-`README.md # ce fichier
-`-`hal2.sh   # le fichier d'installation principal
-`-` programs/ # Dossier contenant les scripts d'installation de chaque module
-`-``-`a.sh     # Script d'intallation du module a
+`-`README.md # ce fichier\
+`-`hal2.sh   # le fichier d'installation principal\
+`-` programs/ # Dossier contenant les scripts d'installation de chaque module\
+`-``-`a.sh     # Script d'intallation du module a\
 
 Les scripts d'installation doivent suivre les propriétés suivantes :
 - Être exécutable
