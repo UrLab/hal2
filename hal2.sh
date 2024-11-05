@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]; then
 	exit 1
 fi
 
-programs=(default $(ls ./programs/ | cut -d'.' -f 1))
+programs=($(ls ./programs/ | cut -d'.' -f 1))
 
 # Descriptor is commented in the second line of the file
 declare -A programs_descriptors
