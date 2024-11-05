@@ -7,12 +7,12 @@ if [ "$EUID" -ne 0 ]; then
 	exit 1
 fi
 
-programs=($(ls ./programs/ | cut -d'.' -f 1))
+programs=($(ls ./programs/ | grep "\.sh"))
 
 # Descriptor is commented in the second line of the file
-declare -A programs_descriptors
+declare -a programs_descriptors
 for ((i = 0; i < ${#programs[@]}; i++)); do
-	programs_descriptors[$i]=$(sed '2q;d' ./programs/${programs[$i]}.sh | sed 's/^.//')
+	programs_descriptors+=("$(sed '2q;d' ./programs/${programs[$i]} | sed 's/^.//')")
 done
 
 echo "Programs available to installation : "
@@ -35,27 +35,15 @@ if [[ $DEVMODE -eq 1 ]]; then
 	exit 0
 fi
 
-sudo apt update && sudo apt full-upgrade
-sudo apt install vim git python3
-sudo ln -s /bin/vim /bin/v
-sudo apt purge nano
-sudo ln -s /bin/vim /bin/nano
-
-git clone https://github.com/urlab/config-files.git
-cp config-files/.vimrc ~/.vimrc
-cp config-files/.bashrc ~/.bashrc
-cp config-files/.bash_aliases ~/.bash_aliases
-rm -rf config-files
-
 if [[ $programs_to_install =~ "0" ]]; then
 	for ((i = 0; i < ${#programs[@]}; i++)); do
 		echo "Installing ${programs_descriptors[$i]}..."
-		./programs/${programs[$i]}.sh
+		./programs/${programs[$i]}
 	done
 else
-	for program in $programs_to_install; do
-		echo "Installing ${programs_descriptors[$program]}..."
-		./programs/${programs[$program]}.sh
+	for i in $programs_to_install; do
+		echo "Installing ${programs_descriptors[$i]}..."
+		./programs/${programs[$i]}
 	done
 fi
 
