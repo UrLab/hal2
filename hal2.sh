@@ -7,6 +7,24 @@ if [ "$EUID" -ne 0 ]; then
 	exit 1
 fi
 
+sudo apt update
+sudo apt install git -y
+
+read -p "Run Raspifresh installation ? (see https://github.com/urlab/raspifresh) [y/N]: " -n 1 -r reply
+if [[ $reply =~ ^[Yy]$ ]]; then
+	echo "\nExecuting Raspifresh..."
+	git clone https://github.com/urlab/raspifresh.git
+	cd raspifresh
+	./fresh.sh
+	cd ..
+	rm -rf raspifresh
+fi
+
+if [[ -n $reply && ! $reply =~ ^[Nn]$ ]]; then
+	echo "\nInvalid input. Exiting..."
+	exit 1
+fi
+
 programs=($(ls ./programs/ | grep "\.sh"))
 
 # Descriptor is commented in the second line of the file
@@ -34,6 +52,12 @@ if [[ $DEVMODE -eq 1 ]]; then
 	echo "Exiting because dev mode is on."
 	exit 0
 fi
+
+sudo apt update && sudo apt install -y curl docker.io docker-compose
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.30.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+sudo usermod -aG docker $USER
 
 if [[ $programs_to_install =~ "0" ]]; then
 	for ((i = 0; i < ${#programs[@]}; i++)); do
