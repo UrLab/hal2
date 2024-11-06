@@ -31,11 +31,6 @@ if [[ $reply =~ ^[Yy]$ ]]; then
 	rm -rf raspifresh
 fi
 
-if [[ -n $reply && ! $reply =~ ^[Nn]$ ]]; then
-	echo "\nInvalid input. Exiting..."
-	exit 1
-fi
-
 separator
 echo "Programs selection..."
 separator
