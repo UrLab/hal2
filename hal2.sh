@@ -23,7 +23,8 @@ echo "Raspifresh installation..."
 separator
 read -p "Run Raspifresh installation ? (see https://github.com/urlab/raspifresh) [y/N]: " -n 1 -r reply
 if [[ $reply =~ ^[Yy]$ ]]; then
-	echo "\nExecuting Raspifresh..."
+	echo
+	echo "Executing Raspifresh..."
 	git clone https://github.com/urlab/raspifresh.git
 	cd raspifresh
 	./fresh.sh
@@ -31,9 +32,26 @@ if [[ $reply =~ ^[Yy]$ ]]; then
 	rm -rf raspifresh
 fi
 
-if [[ -n $reply && ! $reply =~ ^[Nn]$ ]]; then
-	echo "\nInvalid input. Exiting..."
-	exit 1
+separator
+echo "Hal2 configuration..."
+separator
+DO_CONFIG=1
+if [ -f .env ];then
+	read -p "Found a .env file ! Do you want to override it with a new configuration ? [y/N]: " -n -r reply
+	if [[ $reply =~ ^[Yy]$ ]]; then
+		echo "Deleting .env..."
+		rm .env
+	else
+		DO_CONFIG=0
+	fi
+fi
+
+if [[ $DO_CONFIG -eq 1 ]]; then
+	touch .env
+	echo "Please enter the admin password of the container : "
+	htpasswd -B .env HASH_ADMIN
+	# Portainer want to double all $ and we need to put a = instead of a : in the .env file AND to put two single quotes so bash do not try to interpret the password.
+	sed -E -i "s/:/='/; s/$/'/; s/\\$/\\$\\$/g" .env
 fi
 
 separator
@@ -72,7 +90,7 @@ separator
 echo "Portainer installation..."
 separator
 sudo apt install -y curl docker.io docker-compose
-sudo curl -SL https://github.com/docker/compose/releases/download/v2.30.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.30.1/docker-compose-linux-armv7 -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 sudo usermod -aG docker $USER
