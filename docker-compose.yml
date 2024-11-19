@@ -1,0 +1,12 @@
+services:
+  hal2:
+    image: portainer/portainer-ce:linux-arm64
+    restart: always
+    command: --admin-password ${HASH_ADMIN}
+    ports:
+      - 9000:9000 # HTTP
+    volumes:
+      # Docker daemon: must change because we use docker-compose
+      - /var/run/docker.sock:/var/run/docker.sock 
+      # Persistence for data folder
+      - ./portainer_data:/data
