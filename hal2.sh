@@ -92,7 +92,7 @@ separator
 sudo apt install -y curl docker.io docker-compose
 sudo curl -SL https://github.com/docker/compose/releases/download/v2.30.1/docker-compose-linux-armv7 -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+#sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 sudo usermod -aG docker $USER
 
 if [[ $programs_to_install =~ "0" ]]; then
