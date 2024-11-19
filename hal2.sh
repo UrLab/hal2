@@ -13,10 +13,10 @@ separator() {
 
 
 separator
-echo "Update and Git installation..."
+echo "Update and needed packages installation..."
 separator
 sudo apt update
-sudo apt install git -y
+sudo apt install git apache2-utils -y
 
 separator
 echo "Raspifresh installation..."
