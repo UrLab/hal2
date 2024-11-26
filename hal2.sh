@@ -70,11 +70,7 @@ for ((i = 0; i < ${#programs_descriptors[@]}; i++)); do
         echo "$i) ${programs_descriptors[$i]}"
 done
 
-read -p "Enter program numbers to install (separated by space) [0]: " -r programs_to_install
-if [ -z "$programs_to_install" ]; then
-	programs_to_install=0
-fi
-
+read -p "Enter program numbers to install (separated by space) [Leave empty to install none]: " -r programs_to_install
 if [[ $programs_to_install =~ [^0-9\ ] ]]; then
 	echo "Invalid input. Exiting..."
 	exit 1
@@ -119,4 +115,12 @@ else
 		./programs/${programs[$i]}
 	done
 fi
+
+separator
+echo "Hal2 installation successful."
+separator
+echo "Please run :"
+echo "	newgrp docker"
+echo "to start using docker now or log out and log in again."
+echo "Have a great day !"
 
