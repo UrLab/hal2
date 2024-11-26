@@ -51,7 +51,7 @@ if [[ $DO_CONFIG -eq 1 ]]; then
 	echo "Please enter the admin password of the container : "
 	htpasswd -B .env HASH_ADMIN
 	# Portainer want to double all $ and we need to put a = instead of a : in the .env file AND to put two single quotes so bash do not try to interpret the password.
-	sed -E -i "s/:/='/; s/$/'/; s/\\$/\\$\\$/g" .env
+	sed -E -i "s/:/=/; s/$//; s/\\$/\\$\\$/g" .env
 fi
 
 separator
