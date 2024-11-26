@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 echo "Trying to erase current running docker"
-if [$# -le 1]; 
-    then echo "No folder given. Aborting..."
+if [$# -le 1]; then 
+    echo "Usage: $0 <folder_name> [folder_name ...]"
     exit
 fi
 docker-compose down
