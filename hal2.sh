@@ -37,7 +37,7 @@ echo "Hal2 configuration..."
 separator
 DO_CONFIG=1
 if [ -f .env ];then
-	read -p "Found a .env file ! Do you want to override it with a new configuration ? [y/N]: " -n -r reply
+	read -p "Found a .env file ! Do you want to override it with a new configuration ? [y/N]: " -n 1 -r reply
 	if [[ $reply =~ ^[Yy]$ ]]; then
 		echo "Deleting .env..."
 		rm .env
