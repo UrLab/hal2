@@ -95,6 +95,14 @@ sudo chmod +x /usr/local/bin/docker-compose
 #sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 sudo usermod -aG docker $SUDO_USER
 
+separator
+echo "Portainer installation successful. Starting portainer..."
+separator
+if [[ -n "$SUDO_USER" ]]; then
+	su - $SUDO_USER -c "newgrp docker"
+fi
+docker-compose up -d
+
 if [[ $programs_to_install =~ "0" ]]; then
 	for ((i = 0; i < ${#programs[@]}; i++)); do
 		separator
