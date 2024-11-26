@@ -27,7 +27,7 @@ if [[ $reply =~ ^[Yy]$ ]]; then
 	echo "Executing Raspifresh..."
 	git clone https://github.com/urlab/raspifresh.git
 	cd raspifresh
-	./fresh.sh
+	./fresh.sh y
 	cd ..
 	rm -rf raspifresh
 fi
@@ -96,11 +96,12 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo usermod -aG docker $SUDO_USER
 
 separator
-echo "Portainer installation successful. Starting portainer..."
+echo "Portainer installation successful."
+echo "Starting portainer..."
 separator
-if [[ -n "$SUDO_USER" ]]; then
-	su - $SUDO_USER -c "newgrp docker"
-fi
+#if [[ -n "$SUDO_USER" ]]; then
+#	su - $SUDO_USER -c "newgrp docker"
+#fi
 docker-compose up -d
 
 if [[ $programs_to_install =~ "0" ]]; then
