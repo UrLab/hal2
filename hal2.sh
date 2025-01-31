@@ -105,14 +105,14 @@ if [[ $programs_to_install =~ "0" ]]; then
 		separator
 		echo "Installing ${programs_descriptors[$i]}..."
 		separator
-		./programs/${programs[$i]}
+		HOME=$(eval echo ~$SUDO_USER) ./programs/${programs[$i]}
 	done
 else
 	for i in $programs_to_install; do
 		separator
 		echo "Installing ${programs_descriptors[$i]}..."
 		separator
-		./programs/${programs[$i]}
+		HOME=$(eval echo ~$SUDO_USER) ./programs/${programs[$i]}
 	done
 fi
 
