@@ -2,15 +2,9 @@
 
 DEVMODE=0
 
-if [ "$EUID" -ne 0 ]; then
-	echo "Please run script with sudo."
-	exit 1
-fi
-
 separator() {
     echo "$(printf '%.0s-' {1..40})"
 }
-
 
 separator
 echo "Update and needed packages installation..."
@@ -22,8 +16,8 @@ separator
 echo "Raspifresh installation..."
 separator
 read -p "Run Raspifresh installation ? (see https://github.com/urlab/raspifresh) [y/N]: " -n 1 -r reply
+echo
 if [[ $reply =~ ^[Yy]$ ]]; then
-	echo
 	echo "Executing Raspifresh..."
 	git clone https://github.com/urlab/raspifresh.git
 	cd raspifresh
@@ -89,7 +83,7 @@ sudo apt install -y curl docker.io
 sudo curl -SL https://github.com/docker/compose/releases/download/v2.30.1/docker-compose-linux-armv7 -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 #sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-sudo usermod -aG docker $SUDO_USER
+sudo usermod -aG docker $USER
 
 separator
 echo "Portainer installation successful."
@@ -105,14 +99,14 @@ if [[ $programs_to_install =~ "0" ]]; then
 		separator
 		echo "Installing ${programs_descriptors[$i]}..."
 		separator
-		HOME=$(eval echo ~$SUDO_USER) ./programs/${programs[$i]}
+		HOME=$HOME ./programs/${programs[$i]}
 	done
 else
 	for i in $programs_to_install; do
 		separator
 		echo "Installing ${programs_descriptors[$i]}..."
 		separator
-		HOME=$(eval echo ~$SUDO_USER) ./programs/${programs[$i]}
+		HOME=$HOME ./programs/${programs[$i]}
 	done
 fi
 
