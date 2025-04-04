@@ -7,7 +7,6 @@ L' architecture de ce repo d'installation d'HAL2 est la suivante
 
 /  
 ├README.md # ce fichier  
-├README.md # ce fichier  
 ├hal2.sh   # le fichier d'installation principal  
 ├docker-compose.yml/  # Fichier permettant d'installer portainer dockerizé
 ├programs/ # Dossier contenant les scripts d'installation de chaque module  
@@ -25,3 +24,4 @@ Les scripts d'installation doivent suivre les propriétés suivantes :
 Note : Il est préférable d'avoir un script d'installation du module dans le repo du module, de cette manière le script d'installation dans ce repo se contente de clone le module au bon endroit, lancer le script d'installation et cleaner si besoin est.
 
 \-
+
